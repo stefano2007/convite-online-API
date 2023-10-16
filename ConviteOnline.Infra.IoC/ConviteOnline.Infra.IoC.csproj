@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConviteOnline.Application\ConviteOnline.Application.csproj" />
+    <ProjectReference Include="..\ConviteOnline.Domain\ConviteOnline.Domain.csproj" />
+    <ProjectReference Include="..\ConviteOnline.Infra.Data\ConviteOnline.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
