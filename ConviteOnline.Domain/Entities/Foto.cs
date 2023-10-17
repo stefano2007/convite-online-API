@@ -4,34 +4,34 @@ namespace ConviteOnline.Domain.Entities
 {
     public sealed class Foto : Entidade
     {
-        public int AniversarioId { get; private set; }
-        public string Scr { get; private set; }
+        public string AniversarioId { get; private set; }
+        public string Src { get; private set; }
         public string Titulo { get; private set; }
         public string SubTitulo { get; private set; }
         public int Ordem { get; private set; }
 
-        public Foto(int aniversarioId, string scr, string titulo, string subTitulo, int ordem)
+        public Foto(string aniversarioId, string src, string titulo, string subTitulo, int ordem)
         {
-            ValidateDomain(aniversarioId, scr, titulo, subTitulo, ordem);
+            ValidateDomain(aniversarioId, src, titulo, subTitulo, ordem);
         }
 
-        public Foto(int id, int aniversarioId, string scr, string titulo, string subTitulo, int ordem)
+        public Foto(string id, string aniversarioId, string src, string titulo, string subTitulo, int ordem)
         {
-            DomainExceptionValidation.When(id < 0, "Id inválido.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
             Id = id;
-            ValidateDomain(aniversarioId, scr, titulo, subTitulo, ordem);
+            ValidateDomain(aniversarioId, src, titulo, subTitulo, ordem);
         }
 
-        public void Update(int aniversarioId, string scr, string titulo, string subTitulo, int ordem)
+        public void Update(string aniversarioId, string src, string titulo, string subTitulo, int ordem)
         {
-            ValidateDomain(aniversarioId, scr, titulo, subTitulo, ordem);
+            ValidateDomain(aniversarioId, src, titulo, subTitulo, ordem);
         }
-        private void ValidateDomain(int aniversarioId, string scr, string titulo, string subTitulo, int ordem)
+        private void ValidateDomain(string aniversarioId, string src, string titulo, string subTitulo, int ordem)
         {
-            DomainExceptionValidation.When(aniversarioId <= 0,
+            DomainExceptionValidation.When(string.IsNullOrEmpty(src),
                 "Aniversario Id inválido, campo requerido");
 
-            DomainExceptionValidation.When(string.IsNullOrEmpty(scr),
+            DomainExceptionValidation.When(string.IsNullOrEmpty(src),
                 "Src inválido, campo requerido");
 
             DomainExceptionValidation.When(string.IsNullOrEmpty(titulo),
@@ -44,7 +44,7 @@ namespace ConviteOnline.Domain.Entities
                 "Ordem inválido, campo requerido");
 
             AniversarioId = aniversarioId;
-            Scr = scr;
+            Src = src;
             Titulo = titulo;
             SubTitulo = subTitulo;
             Ordem = ordem;

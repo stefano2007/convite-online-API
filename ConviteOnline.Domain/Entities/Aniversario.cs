@@ -18,7 +18,7 @@ namespace ConviteOnline.Domain.Entities
         public string ImagemConvite { get; private set; }
         public DateOnly DataLimiteConfirmaPresenca { get; private set; }
         public List<Foto> FotosDestaque { get; private set; }
-        public List<Foto> FotosCarrosel { get; private set; }
+        public List<Foto> FotosCarrossel { get; private set; }
         public List<Foto> Fotos { get; private set; }
         public List<Resposta> Respostas { get; private set; }
 
@@ -31,11 +31,11 @@ namespace ConviteOnline.Domain.Entities
                 imagemConvite,  dataLimiteConfirmaPresenca);
         }
 
-        public Aniversario(int id, string slug, string nome, int idade, string descricao, string titulo,
+        public Aniversario(string id, string slug, string nome, int idade, string descricao, string titulo,
             string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
             string endereco, string localizacaoUrl, string imagemConvite, DateOnly dataLimiteConfirmaPresenca)
         {
-            DomainExceptionValidation.When(id < 0, "Id inválido.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
             Id = id;
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
                 dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl,

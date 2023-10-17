@@ -16,9 +16,9 @@ namespace ConviteOnline.Domain.Entities
         {
             ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataResposta, modificacao);
         }
-        public Resposta(int id, int aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime? modificacao)
+        public Resposta(string id, int aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime? modificacao)
         {
-            DomainExceptionValidation.When(id < 0, "Id inválido.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
             Id = id;
             ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataResposta, modificacao);
         }
