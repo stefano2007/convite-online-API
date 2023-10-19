@@ -70,7 +70,7 @@ namespace ConviteOnline.API.Controllers
             var user = await _fotoService.ObterPorIdAsync(id, cancellation);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound("Foto não encontrada");
             }
 
             await _fotoService.DeletaAsync(id, cancellation);

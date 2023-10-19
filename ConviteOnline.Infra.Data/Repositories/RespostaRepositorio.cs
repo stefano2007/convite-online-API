@@ -1,33 +1,60 @@
-﻿using ConviteOnline.Domain.Entities;
+﻿using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DocumentModel;
+using ConviteOnline.Domain.Entities;
 using ConviteOnline.Domain.Interfaces;
+using ConviteOnline.Infra.Data.EntitiesConfiguration;
 
 namespace ConviteOnline.Infra.Data.Repositories
 {
     public class RespostaRepositorio : IRespostaRepositorio
     {
-        public Task<Foto> AlterarAsync(Foto obj)
+        private readonly IDynamoDBContext _dynamoDBContext;
+
+        public RespostaRepositorio(IDynamoDBContext dynamoDBContext)
         {
-            throw new NotImplementedException();
+            _dynamoDBContext = dynamoDBContext;
         }
 
-        public Task<Foto> CriarAsync(Foto obj)
+        public async Task<Resposta> AlterarAsync(Resposta resposta, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var respostaDB = (Resposta)await _dynamoDBContext.LoadAsync<RespostaDynamoDB>(resposta.Id, cancellation);
+            respostaDB.Update(resposta.AniversarioId, resposta.QtdAdultos, resposta.QtdCriancas,
+                    resposta.Mensagem, resposta.MarcaPresenca, resposta.DataModificacao);
+
+            var respostaDBUpdate = (RespostaDynamoDB)respostaDB;
+
+            await _dynamoDBContext.SaveAsync<RespostaDynamoDB>(respostaDBUpdate);
+            return (Resposta)respostaDBUpdate;
         }
 
-        public Task<Foto> DeletaAsync(Foto obj)
+        public async Task<Resposta> CriarAsync(Resposta obj, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var respostaDynamoDB = (RespostaDynamoDB)obj;
+            await _dynamoDBContext.SaveAsync(respostaDynamoDB, cancellation);
+            return (Resposta)respostaDynamoDB;
         }
-
-        public Task<Foto> ObterPorIdAsync(int id)
+        public async Task<Resposta> DeletaAsync(Resposta obj, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var respostaDynamoDB = (RespostaDynamoDB)obj;
+            await _dynamoDBContext.DeleteAsync<RespostaDynamoDB>(respostaDynamoDB, cancellation);
+            return (Resposta)respostaDynamoDB;
         }
-
-        public Task<IEnumerable<Foto>> ObterPorSlugAsync(string slug)
+        public async Task<Resposta> ObterPorIdAsync(string id, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            var respostaDynamoDB = await _dynamoDBContext.LoadAsync<RespostaDynamoDB>(id, cancellation);
+
+            var resposta = (Resposta)respostaDynamoDB;
+            return resposta;
+        }
+        public async Task<IEnumerable<Resposta>> ObterPorAniversarioIdAsync(string aniversarioId, CancellationToken cancellation)
+        {
+            List<ScanCondition> conditions = new List<ScanCondition>();
+            conditions.Add(new ScanCondition("AniversarioId", ScanOperator.Equal, aniversarioId));
+
+            var search = _dynamoDBContext.ScanAsync<RespostaDynamoDB>(conditions);
+            var searchResponse = await search.GetRemainingAsync();
+
+            return searchResponse.Select(f => (Resposta)f);
         }
     }
 }

@@ -31,10 +31,12 @@ namespace ConviteOnline.Infra.IoC
 
             //Repositorios
             services.AddScoped<IFotoRepositorio, FotoRepositorio>();
+            services.AddScoped<IRespostaRepositorio, RespostaRepositorio>();
 
             //Services
             services.AddScoped<IFotoService, FotoService>();
             services.AddScoped<IStorageService, StorageService>();
+            services.AddScoped<IRespostaService, RespostaService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
 

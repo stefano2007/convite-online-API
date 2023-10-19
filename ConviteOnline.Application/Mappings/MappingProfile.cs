@@ -13,6 +13,8 @@ namespace ConviteOnline.Application.Mappings
             //CreateMap<FotoDTO, FotoCommand>();
             //CreateMap<FotoCriarDTO, LaunchCreateCommand>();
             //CreateMap<FotoAlterarDTO, FotoUpdateCommand>();
+
+            CreateMap<Resposta, RespostaDTO>().ReverseMap();
         }
     }
 }

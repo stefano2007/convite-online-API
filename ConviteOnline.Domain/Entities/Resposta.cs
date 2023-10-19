@@ -4,31 +4,35 @@ namespace ConviteOnline.Domain.Entities
 {
     public sealed class Resposta : Entidade
     {
-        public int AniversarioId { get; private set; }
-        public int QtdAdultos { get; set; }
-        public int QtdCriancas { get; set; }
-        public string Mensagem { get; set; }
-        public bool MarcaPresenca { get; set; }
-        public DateTime DataResposta { get; set;}
-        public DateTime? Modificacao { get; set; }
+        public string AniversarioId { get; private set; }
+        public int QtdAdultos { get; private set; }
+        public int QtdCriancas { get; private set; }
+        public string Mensagem { get; private set; }
+        public bool MarcaPresenca { get; private set; }
+        public DateTime DataResposta { get; protected set; }
+        public DateTime? DataModificacao { get; private set; }
 
-        public Resposta(int aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime? modificacao)
+        public Resposta(string aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime? dataModificacao)
         {
-            ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataResposta, modificacao);
+            ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataModificacao);
         }
-        public Resposta(string id, int aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime? modificacao)
+        public Resposta(string id, string aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime? dataModificacao)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
+
+            DomainExceptionValidation.When(dataResposta == DateTime.MinValue,
+                "Data Resposta inválido, campo requerido");
             Id = id;
-            ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataResposta, modificacao);
+            DataResposta = dataResposta;
+            ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataModificacao);
         }
-        public void Update(int aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime modificacao)
+        public void Update(string aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime? dataModificacao)
         {
-            ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataResposta, modificacao);
+            ValidateDomain(aniversarioId, qtdAdultos, qtdCriancas, mensagem, marcaPresenca, dataModificacao);
         }
-        private void ValidateDomain(int aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime dataResposta, DateTime? modificacao)
+        private void ValidateDomain(string aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime? dataModificacao)
         {
-            DomainExceptionValidation.When(aniversarioId <= 0,
+            DomainExceptionValidation.When(string.IsNullOrEmpty(aniversarioId),
                 "Aniversario Id inválido, campo requerido");
 
             DomainExceptionValidation.When(qtdAdultos <= 0,
@@ -40,16 +44,12 @@ namespace ConviteOnline.Domain.Entities
             DomainExceptionValidation.When(string.IsNullOrEmpty(mensagem),
                 "Titulo inválido, campo requerido");
 
-            DomainExceptionValidation.When(dataResposta == DateTime.MinValue,
-                "Data Resposta inválido, campo requerido");
-
             AniversarioId = aniversarioId;
             QtdAdultos = qtdAdultos;
             QtdCriancas = qtdCriancas;
             Mensagem = mensagem;
             MarcaPresenca = marcaPresenca;
-            DataResposta = dataResposta;
-            Modificacao = modificacao;
+            DataModificacao = dataModificacao;
         }
     }
 }

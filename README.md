@@ -13,7 +13,8 @@ No repositorio no repositorio [Convite Online](https://github.com/stefano2007/co
 
 ## Escopo do Projeto
 
-- [ ] Projeto WEB API criado em .Net 7.
+- [ ] Projeto WEB API
+    - [ ] .Net 7.
     - [ ] Arquitetura Limpa.
     - [ ] AutoMapper.
     - [ ] MediaR.
