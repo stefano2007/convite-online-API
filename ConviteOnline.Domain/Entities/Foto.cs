@@ -12,27 +12,29 @@ namespace ConviteOnline.Domain.Entities
 
         public Foto(string aniversarioId, string src, string titulo, string subTitulo, int ordem)
         {
-            ValidateDomain(aniversarioId, src, titulo, subTitulo, ordem);
+            DomainExceptionValidation.When(string.IsNullOrEmpty(src), "Src inválido, campo requerido");
+            Src = src;
+            ValidateDomain(aniversarioId, titulo, subTitulo, ordem);
         }
 
         public Foto(string id, string aniversarioId, string src, string titulo, string subTitulo, int ordem)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(src),"Src inválido, campo requerido");
             Id = id;
-            ValidateDomain(aniversarioId, src, titulo, subTitulo, ordem);
+            Src = src;
+
+            ValidateDomain(aniversarioId, titulo, subTitulo, ordem);
         }
 
-        public void Update(string aniversarioId, string src, string titulo, string subTitulo, int ordem)
+        public void Update(string aniversarioId, string titulo, string subTitulo, int ordem)
         {
-            ValidateDomain(aniversarioId, src, titulo, subTitulo, ordem);
+            ValidateDomain(aniversarioId, titulo, subTitulo, ordem);
         }
-        private void ValidateDomain(string aniversarioId, string src, string titulo, string subTitulo, int ordem)
+        private void ValidateDomain(string aniversarioId, string titulo, string subTitulo, int ordem)
         {
-            DomainExceptionValidation.When(string.IsNullOrEmpty(src),
+            DomainExceptionValidation.When(string.IsNullOrEmpty(aniversarioId),
                 "Aniversario Id inválido, campo requerido");
-
-            DomainExceptionValidation.When(string.IsNullOrEmpty(src),
-                "Src inválido, campo requerido");
 
             DomainExceptionValidation.When(string.IsNullOrEmpty(titulo),
                 "Titulo inválido, campo requerido");
@@ -44,7 +46,6 @@ namespace ConviteOnline.Domain.Entities
                 "Ordem inválido, campo requerido");
 
             AniversarioId = aniversarioId;
-            Src = src;
             Titulo = titulo;
             SubTitulo = subTitulo;
             Ordem = ordem;

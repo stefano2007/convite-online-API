@@ -4,6 +4,7 @@ using Amazon.Extensions.NETCore.Setup;
 using ConviteOnline.Application.Interfaces;
 using ConviteOnline.Application.Mappings;
 using ConviteOnline.Application.Services;
+using ConviteOnline.Application.Utils;
 using ConviteOnline.Domain.Interfaces;
 using ConviteOnline.Infra.Data.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -25,11 +26,15 @@ namespace ConviteOnline.Infra.IoC
             services.AddAWSService<IAmazonDynamoDB>();
             services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 
+            services.AddSingleton<AmazonS3ClientUtil>(c => AmazonS3ClientUtil.IniciarlizacaoS3(configuration));
+
+
             //Repositorios
             services.AddScoped<IFotoRepositorio, FotoRepositorio>();
 
-            //Repositorios
+            //Services
             services.AddScoped<IFotoService, FotoService>();
+            services.AddScoped<IStorageService, StorageService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
 

@@ -6,8 +6,8 @@ No repositorio no repositorio [Convite Online](https://github.com/stefano2007/co
 - Campos obrigatorios: Nome, Titulo, Descrição, Data Aniversario, Data Evento, Horario Evento, Endereço e Data Limite de Confirma a Presença. 
     - [ ] Pode ser marcado até 6 fotos em destaque.
 	- [ ] Pode ser selecionado até 20 fotos no carrossel.
-- [ ] Deve ter o endpoint fotos.
-    - [ ] Upload de imagens no S3
+- [x] Deve ter o endpoint fotos.
+    - [x] Upload de imagens no S3
     - [ ] refatorar padrão CQRS
 - [ ] Deve ter o endpoint respostas (Confirmação de Presença).
 
@@ -21,7 +21,7 @@ No repositorio no repositorio [Convite Online](https://github.com/stefano2007/co
     - [ ] Testes
 - [ ] Configurar na maquina local Acess Key 
     - Acessa o IAM gerar chave de acesso do usuario
-    - executar o CLI comando > aws configure [tutorial confiruação CLI](https://youtu.be/Rp-A84oh4G8?si=A6fV60GXeYLafXWX)
+    - executar o CLI comando > aws configure [tutorial configuração CLI](https://youtu.be/Rp-A84oh4G8?si=A6fV60GXeYLafXWX)
 - [x] Persistir os dados no DynamoDB da AWS.
     - [x] Cria tabela respostasConviteOnline
     - [x] Cria tabela fotosConviteOnline

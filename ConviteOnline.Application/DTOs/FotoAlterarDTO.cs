@@ -9,9 +9,6 @@ namespace ConviteOnline.Application.DTOs
         [Required(ErrorMessage = "Aniversario Id é requerido")]
         public string AniversarioId { get; set; }
 
-        [Required(ErrorMessage = "Src é requerido")]
-        public string Src { get; set; }
-
         [Required(ErrorMessage = "Titulo é requerido")]
         public string Titulo { get; set; }
 

@@ -9,12 +9,17 @@ namespace ConviteOnline.Application.Services
     public class FotoService : IFotoService
     {
         private readonly IFotoRepositorio _fotoRepositorio;
+        private readonly IStorageService _storageService;
         private readonly IMapper _mapper;
-        public FotoService(IFotoRepositorio fotoRepositorio, IMapper mapper)
+        public FotoService(IFotoRepositorio fotoRepositorio, IMapper mapper, IStorageService storageService)
         {
             _fotoRepositorio = fotoRepositorio;
+            _storageService = storageService;
             _mapper = mapper;
         }
+
+        //TODO: verificar aonde será obtido o caminho posteriomente por enquanto fixo
+        const string caminhoImagens = @"assets/img/";
 
         public async Task<FotoDTO> AlterarAsync(FotoAlterarDTO request, CancellationToken cancellation)
         {
@@ -22,22 +27,30 @@ namespace ConviteOnline.Application.Services
 
             if (foto == null)
             {
-                throw new Exception("Foto não encontrada para deletar");
+                throw new Exception("Foto não encontrada para alterar");
             }
 
-            foto.Update(request.AniversarioId, request.Src, request.Titulo, request.SubTitulo, request.Ordem);
+            foto.Update(request.AniversarioId, request.Titulo, request.SubTitulo, request.Ordem);
 
             var result = await _fotoRepositorio.AlterarAsync(foto, cancellation);
             return _mapper.Map<FotoDTO>(result);
         }
 
-        public async Task<FotoDTO> CriarAsync(FotoCriarDTO request, CancellationToken cancellation)
+        public async Task<FotoDTO> CriarAsync(FotoCriarDTO request, UploadFileDTO file, CancellationToken cancellation)
         {
-            var foto = new Foto(Guid.NewGuid().ToString(), request.AniversarioId, request.Src, request.Titulo, request.SubTitulo, request.Ordem);
+            //TODO: subir no S3            
+            var urlArquivo = await _storageService.CarregaArquivoAsync(file, caminhoImagens, cancellation);
+
+            if (string.IsNullOrEmpty(urlArquivo))
+            {
+                throw new ApplicationException($"Erro ao salvar arquivo.");
+            }
+
+            var foto = new Foto(Guid.NewGuid().ToString(), request.AniversarioId, urlArquivo, request.Titulo, request.SubTitulo, request.Ordem);
 
             if (foto == null)
             {
-                throw new ApplicationException($"Error creating entity.");
+                throw new ApplicationException($"Erro na criação da entidade.");
             }
 
             var result = await _fotoRepositorio.CriarAsync(foto, cancellation);
@@ -51,6 +64,14 @@ namespace ConviteOnline.Application.Services
             if(foto == null)
             {
                 throw new Exception("Foto não encontrada para deletar");
+            }
+
+            //TODO: deletar no S3            
+            var removido = await _storageService.DeletarArquivoAsync(foto.Src, cancellation);
+
+            if (!removido)
+            {
+                throw new ApplicationException($"Erro ao excluir arquivo.");
             }
 
             var result = await _fotoRepositorio.DeletaAsync(foto, cancellation);

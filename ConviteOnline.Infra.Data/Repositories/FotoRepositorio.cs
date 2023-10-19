@@ -16,7 +16,7 @@ namespace ConviteOnline.Infra.Data.Repositories
         public async Task<Foto> AlterarAsync(Foto obj, CancellationToken cancellation)
         {
             var fotoDB = (Foto) await _dynamoDBContext.LoadAsync<FotoDynamoDB>(obj.Id, cancellation);
-            fotoDB.Update(obj.AniversarioId, obj.Src, obj.Titulo, obj.SubTitulo, obj.Ordem);
+            fotoDB.Update(obj.AniversarioId, obj.Titulo, obj.SubTitulo, obj.Ordem);
 
             var fotoDBUpdate = (FotoDynamoDB)fotoDB;
 
@@ -50,7 +50,7 @@ namespace ConviteOnline.Infra.Data.Repositories
             var search = _dynamoDBContext.ScanAsync<FotoDynamoDB>(conditions);
             var searchResponse = await search.GetRemainingAsync();
 
-            return searchResponse.Select( f => (Foto) f);
+            return searchResponse.Select(f => (Foto) f);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using ConviteOnline.Application.DTOs;
 using ConviteOnline.Application.Interfaces;
-using ConviteOnline.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConviteOnline.API.Controllers
@@ -36,12 +35,16 @@ namespace ConviteOnline.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] FotoCriarDTO fotoCriarDto, CancellationToken cancellation)
+        public async Task<ActionResult> Post([FromForm] FotoCriarDTO fotoCriarDto, [FromForm] IFormFile arquivo, CancellationToken cancellation)
         {
             if (fotoCriarDto == null)
                 return BadRequest("Invalid Data");
 
-            var result = await _fotoService.CriarAsync(fotoCriarDto, cancellation);
+            await using var memoryStream = new MemoryStream();
+            await arquivo.CopyToAsync(memoryStream, cancellation);
+            UploadFileDTO file = new(arquivo.FileName, memoryStream);
+
+            var result = await _fotoService.CriarAsync(fotoCriarDto, file, cancellation);
 
             return new CreatedAtRouteResult("GetFotoPorId", new { id = result.Id },
                 result);
