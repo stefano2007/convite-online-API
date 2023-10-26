@@ -20,13 +20,13 @@ namespace ConviteOnline.Infra.Data.Repositories
 
             var fotoDBUpdate = (FotoDynamoDB)fotoDB;
 
-            await _dynamoDBContext.SaveAsync<FotoDynamoDB>(fotoDBUpdate);
+            await _dynamoDBContext.SaveAsync<FotoDynamoDB>(fotoDBUpdate, cancellation);
             return (Foto) fotoDBUpdate;
         }
         public async Task<Foto> CriarAsync(Foto obj, CancellationToken cancellation)
         {
             var fotoDynamoDB = (FotoDynamoDB)obj;
-            await _dynamoDBContext.SaveAsync(fotoDynamoDB, cancellation);
+            await _dynamoDBContext.SaveAsync<FotoDynamoDB>(fotoDynamoDB, cancellation);
             return (Foto) fotoDynamoDB;
         }
         public async Task<Foto> DeletaAsync(Foto obj, CancellationToken cancellation)
@@ -48,7 +48,7 @@ namespace ConviteOnline.Infra.Data.Repositories
             conditions.Add(new ScanCondition("AniversarioId", ScanOperator.Equal, aniversarioId));
 
             var search = _dynamoDBContext.ScanAsync<FotoDynamoDB>(conditions);
-            var searchResponse = await search.GetRemainingAsync();
+            var searchResponse = await search.GetRemainingAsync(cancellation);
 
             return searchResponse.Select(f => (Foto) f);
         }

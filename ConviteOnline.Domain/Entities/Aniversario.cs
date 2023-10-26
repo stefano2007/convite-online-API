@@ -22,6 +22,46 @@ namespace ConviteOnline.Domain.Entities
         public List<Foto> Fotos { get; private set; }
         public List<Resposta> Respostas { get; private set; }
 
+        public void AdicionarFotoDestaque(Foto fotoDestaque)
+        {
+            FotosDestaque = FotosDestaque ?? new List<Foto>();
+
+            DomainExceptionValidation.When( FotosDestaque.Count >= 6,
+                "Limite de até 6 Fotos em Destaque atingido.");
+
+            FotosDestaque.Add(fotoDestaque);
+        }
+
+        public void RemoverFotoDestaque(Foto fotoDestaque)
+        {
+            FotosDestaque = FotosDestaque ?? new List<Foto>();
+
+            DomainExceptionValidation.When(fotoDestaque == null,
+               "Não foi possivel localizar a foto para excluir.");
+
+            FotosDestaque.Remove(fotoDestaque);
+        }
+
+        public void AdicionarFotoCarrossel(Foto fotoCarrossel)
+        {
+            FotosCarrossel = FotosCarrossel ?? new List<Foto>();
+
+            DomainExceptionValidation.When(FotosCarrossel.Count >= 20,
+                "Limite de até 20 Fotos no Carrossel atingido.");
+
+            FotosCarrossel.Add(fotoCarrossel);
+        }
+
+        public void RemoverFotoCarrossel(Foto fotoCarrossel)
+        {
+            FotosCarrossel = FotosCarrossel ?? new List<Foto>();
+
+            DomainExceptionValidation.When(fotoCarrossel == null,
+               "Não foi possivel localizar a foto para excluir.");
+
+            FotosDestaque.Remove(fotoCarrossel);
+        }
+
         public Aniversario(string slug, string nome, int idade, string descricao, string titulo, 
             string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, 
             string endereco, string localizacaoUrl, string imagemConvite, DateOnly dataLimiteConfirmaPresenca)

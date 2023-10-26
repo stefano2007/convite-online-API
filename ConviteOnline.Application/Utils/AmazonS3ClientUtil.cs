@@ -30,10 +30,11 @@ namespace ConviteOnline.Application.Utils
             var response = new S3ResponseDTO();
             try
             {
+                path = path.Replace(@"\", "/");
                 var uploadRequest = new TransferUtilityUploadRequest()
                 {
                     InputStream = obj.Stream,
-                    Key = $"{path}{obj.NewFileName}",
+                    Key = $"{path}/{obj.NewFileName}",
                     BucketName = BucketNameStorage,
                     CannedACL = S3CannedACL.NoACL
                 };

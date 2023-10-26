@@ -23,14 +23,14 @@ namespace ConviteOnline.Infra.Data.Repositories
 
             var respostaDBUpdate = (RespostaDynamoDB)respostaDB;
 
-            await _dynamoDBContext.SaveAsync<RespostaDynamoDB>(respostaDBUpdate);
+            await _dynamoDBContext.SaveAsync<RespostaDynamoDB>(respostaDBUpdate, cancellation);
             return (Resposta)respostaDBUpdate;
         }
 
         public async Task<Resposta> CriarAsync(Resposta obj, CancellationToken cancellation)
         {
             var respostaDynamoDB = (RespostaDynamoDB)obj;
-            await _dynamoDBContext.SaveAsync(respostaDynamoDB, cancellation);
+            await _dynamoDBContext.SaveAsync<RespostaDynamoDB>(respostaDynamoDB, cancellation);
             return (Resposta)respostaDynamoDB;
         }
         public async Task<Resposta> DeletaAsync(Resposta obj, CancellationToken cancellation)
@@ -52,7 +52,7 @@ namespace ConviteOnline.Infra.Data.Repositories
             conditions.Add(new ScanCondition("AniversarioId", ScanOperator.Equal, aniversarioId));
 
             var search = _dynamoDBContext.ScanAsync<RespostaDynamoDB>(conditions);
-            var searchResponse = await search.GetRemainingAsync();
+            var searchResponse = await search.GetRemainingAsync(cancellation);
 
             return searchResponse.Select(f => (Resposta)f);
         }

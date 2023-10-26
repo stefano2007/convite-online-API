@@ -11,19 +11,17 @@ namespace ConviteOnline.Application.Services
         private readonly IFotoRepositorio _fotoRepositorio;
         private readonly IStorageService _storageService;
         private readonly IMapper _mapper;
-        public FotoService(IFotoRepositorio fotoRepositorio, IMapper mapper, IStorageService storageService)
+        private readonly IAniversarioRepositorio _aniversarioRepositorio;
+        public FotoService(IFotoRepositorio fotoRepositorio, IMapper mapper, IStorageService storageService, IAniversarioRepositorio aniversarioRepositorio)
         {
             _fotoRepositorio = fotoRepositorio;
             _storageService = storageService;
             _mapper = mapper;
+            _aniversarioRepositorio = aniversarioRepositorio;
         }
-
-        //TODO: verificar aonde será obtido o caminho posteriomente por enquanto fixo
-        const string caminhoImagens = @"assets/img/";
-
         public async Task<FotoDTO> AlterarAsync(FotoAlterarDTO request, CancellationToken cancellation)
         {
-            var foto = await _fotoRepositorio.ObterPorIdAsync(request.Id, cancellation);
+            var foto = await _fotoRepositorio.ObterPorIdAsync(request.AniversarioId, cancellation);
 
             if (foto == null)
             {
@@ -38,8 +36,14 @@ namespace ConviteOnline.Application.Services
 
         public async Task<FotoDTO> CriarAsync(FotoCriarDTO request, UploadFileDTO file, CancellationToken cancellation)
         {
+            var aniversario = await _aniversarioRepositorio.ObterPorIdAsync(request.AniversarioId, cancellation);
+
+            if (aniversario == null)
+            {
+                throw new Exception("Aniversario não encontrada para alterar");
+            }
             //TODO: subir no S3            
-            var urlArquivo = await _storageService.CarregaArquivoAsync(file, caminhoImagens, cancellation);
+            var urlArquivo = await _storageService.CarregaArquivoAsync(file, request.AniversarioId, "fotos", cancellation);
 
             if (string.IsNullOrEmpty(urlArquivo))
             {
