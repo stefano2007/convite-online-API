@@ -22,7 +22,7 @@ namespace ConviteOnline.Application.Services
 
             if (resposta == null)
             {
-                throw new Exception("Resposta não encontrada para alterar");
+                throw new ApplicationException("Resposta não encontrada para alterar");
             }
 
             resposta.Update(request.AniversarioId, request.QtdAdultos, request.QtdCriancas, request.Mensagem, request.MarcaPresenca, DateTime.Now);
@@ -50,7 +50,7 @@ namespace ConviteOnline.Application.Services
 
             if (resposta == null)
             {
-                throw new Exception("Resposta não encontrada para deletar");
+                throw new ApplicationException("Resposta não encontrada para deletar");
             }
 
             var result = await _respostaRepositorio.DeletaAsync(resposta, cancellation);

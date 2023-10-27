@@ -23,7 +23,7 @@ namespace ConviteOnline.Application.Services
 
             if (aniversario == null)
             {
-                throw new Exception("Aniversario não encontrada para alterar");
+                throw new ApplicationException("Aniversario não encontrada para alterar");
             }
             // TODO: subir no S3
             var urlArquivo = await _storageService.CarregaArquivoAsync(file, request.AniversarioId, "fotosCarrossel", cancellation);
@@ -45,7 +45,7 @@ namespace ConviteOnline.Application.Services
 
             if (aniversario == null)
             {
-                throw new Exception("Aniversario não encontrada para alterar");
+                throw new ApplicationException("Aniversario não encontrada para alterar");
             }
 
             // TODO: subir no S3
@@ -68,7 +68,7 @@ namespace ConviteOnline.Application.Services
 
             if (aniversario == null)
             {
-                throw new Exception("Aniversario não encontrada para alterar");
+                throw new ApplicationException("Aniversario não encontrada para alterar");
             }
 
             aniversario.Update(request.Slug, request.Nome, request.Idade, request.Descricao, request.Titulo, request.Informativos,
@@ -100,7 +100,7 @@ namespace ConviteOnline.Application.Services
 
             if (aniversario == null)
             {
-                throw new Exception("Aniversario não encontrada para deletar");
+                throw new ApplicationException("Aniversario não encontrada para deletar");
             }
 
             var result = await _aniversarioRepositorio.DeletaAsync(aniversario, cancellation);
@@ -127,12 +127,12 @@ namespace ConviteOnline.Application.Services
             var aniversario = await _aniversarioRepositorio.ObterPorIdAsync(aniversarioId, cancellation);
 
             if (aniversario == null)
-                throw new Exception("Aniversario não encontrada para alterar.");
+                throw new ApplicationException("Aniversario não encontrada para alterar.");
 
             var foto = aniversario.FotosCarrossel.Where(x => x.Id == id).FirstOrDefault();
 
             if (foto == null)
-                throw new Exception("Foto não encontrada para excluir.");
+                throw new ApplicationException("Foto não encontrada para excluir.");
 
             //TODO: deletar no S3            
             var removido = await _storageService.DeletarArquivoAsync(foto.Src, cancellation);
@@ -151,12 +151,12 @@ namespace ConviteOnline.Application.Services
             var aniversario = await _aniversarioRepositorio.ObterPorIdAsync(aniversarioId, cancellation);
 
             if (aniversario == null)
-                throw new Exception("Aniversario não encontrada para alterar.");
+                throw new ApplicationException("Aniversario não encontrada para alterar.");
 
             var foto = aniversario.FotosDestaque.Where(x => x.Id == id).FirstOrDefault();
 
             if (foto == null)
-                throw new Exception("Foto não encontrada para excluir.");
+                throw new ApplicationException("Foto não encontrada para excluir.");
 
             //TODO: deletar no S3            
             var removido = await _storageService.DeletarArquivoAsync(foto.Src, cancellation);

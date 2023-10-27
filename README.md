@@ -19,6 +19,7 @@ No repositorio no repositorio [Convite Online](https://github.com/stefano2007/co
     - [x] AutoMapper.
     - [ ] MediaR.
     - [x] Versionamento API exemplo /api/v1/aniversarios.
+    - [x] Adicionar Problem Details
     - [ ] Testes
 - [x] Configurar na maquina local Acess Key 
     - Acessa o IAM gerar chave de acesso do usuario
