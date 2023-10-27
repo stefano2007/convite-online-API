@@ -25,7 +25,7 @@ namespace ConviteOnline.Application.Services
 
             if (foto == null)
             {
-                throw new Exception("Foto não encontrada para alterar");
+                throw new ApplicationException("Foto não encontrada para alterar");
             }
 
             foto.Update(request.AniversarioId, request.Titulo, request.SubTitulo, request.Ordem);
@@ -40,7 +40,7 @@ namespace ConviteOnline.Application.Services
 
             if (aniversario == null)
             {
-                throw new Exception("Aniversario não encontrada para alterar");
+                throw new ApplicationException("Aniversario não encontrada");
             }
             //TODO: subir no S3            
             var urlArquivo = await _storageService.CarregaArquivoAsync(file, request.AniversarioId, "fotos", cancellation);
@@ -67,7 +67,7 @@ namespace ConviteOnline.Application.Services
 
             if(foto == null)
             {
-                throw new Exception("Foto não encontrada para deletar");
+                throw new ApplicationException("Foto não encontrada para deletar");
             }
 
             //TODO: deletar no S3            
