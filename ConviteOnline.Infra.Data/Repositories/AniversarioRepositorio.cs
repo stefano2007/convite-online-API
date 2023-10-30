@@ -44,12 +44,14 @@ namespace ConviteOnline.Infra.Data.Repositories
             var aniversarioDB = (Aniversario)await _dynamoDBContext.LoadAsync<AniversarioDynamoDB>(obj.Id, cancellation);
             aniversarioDB.Update(obj.Slug, obj.Nome, obj.Idade, obj.Descricao, obj.Titulo, obj.Informativos,
                 obj.DataAniversario, obj.DataEvento, obj.HorarioEvento, obj.Endereco, obj.LocalizacaoUrl,
-                obj.ImagemConvite, obj.DataLimiteConfirmaPresenca);
+                obj.DataLimiteConfirmaPresenca);
 
             var aniversarioDBUpdate = (AniversarioDynamoDB)aniversarioDB;
 
             aniversarioDBUpdate.FotosDestaque = obj.FotosDestaque?.Select(f => (FotoDetail)f).ToArray();
             aniversarioDBUpdate.FotosCarrossel = obj.FotosCarrossel?.Select(f => (FotoDetail)f).ToArray();
+
+            aniversarioDBUpdate.ImagemConvite = obj.ImagemConvite;
 
             await _dynamoDBContext.SaveAsync<AniversarioDynamoDB>(aniversarioDBUpdate, cancellation);
             return (Aniversario)aniversarioDBUpdate;

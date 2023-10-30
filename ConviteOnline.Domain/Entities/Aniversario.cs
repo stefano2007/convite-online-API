@@ -62,38 +62,51 @@ namespace ConviteOnline.Domain.Entities
             FotosDestaque.Remove(fotoCarrossel);
         }
 
+        public void AlterarImagemConvite(string imagemConvite)
+        {
+            DomainExceptionValidation.When(string.IsNullOrEmpty(imagemConvite),
+                "Imagem Convite inválido, campo requerido");
+
+            ImagemConvite = imagemConvite;
+        }
+
+        public void RemoverImagemConvite()
+        {
+            ImagemConvite = string.Empty;
+        }
+
         public Aniversario(string slug, string nome, int idade, string descricao, string titulo, 
             string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, 
-            string endereco, string localizacaoUrl, string imagemConvite, DateOnly dataLimiteConfirmaPresenca)
+            string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
                 dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl, 
-                imagemConvite,  dataLimiteConfirmaPresenca);
+                dataLimiteConfirmaPresenca);
         }
 
         public Aniversario(string id, string slug, string nome, int idade, string descricao, string titulo,
             string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
-            string endereco, string localizacaoUrl, string imagemConvite, DateOnly dataLimiteConfirmaPresenca)
+            string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
             Id = id;
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
                 dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl,
-                imagemConvite, dataLimiteConfirmaPresenca);
+                dataLimiteConfirmaPresenca);
         }
 
         public void Update(string slug, string nome, int idade, string descricao, string titulo,
             string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
-            string endereco, string localizacaoUrl, string imagemConvite, DateOnly dataLimiteConfirmaPresenca)
+            string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
                 dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl,
-                imagemConvite, dataLimiteConfirmaPresenca);
+                dataLimiteConfirmaPresenca);
         }
 
         private void ValidateDomain(string slug, string nome, int idade, string descricao, string titulo,
             string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
-            string endereco, string localizacaoUrl, string imagemConvite, DateOnly dataLimiteConfirmaPresenca)
+            string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(slug),
                 "SLUG inválido, campo requerido");
@@ -136,7 +149,6 @@ namespace ConviteOnline.Domain.Entities
             HorarioEvento = horarioEvento;
             Endereco = endereco;
             LocalizacaoUrl = localizacaoUrl;
-            ImagemConvite = imagemConvite;
             DataLimiteConfirmaPresenca = dataLimiteConfirmaPresenca;
         }
     }

@@ -54,9 +54,9 @@ namespace ConviteOnline.API.Controllers
             if (userAlterarDto == null)
                 return BadRequest();
 
-            await _respostaService.AlterarAsync(userAlterarDto, cancellation);
+            var dto = await _respostaService.AlterarAsync(userAlterarDto, cancellation);
 
-            return Ok(userAlterarDto);
+            return Ok(dto);
         }
 
         [HttpDelete]

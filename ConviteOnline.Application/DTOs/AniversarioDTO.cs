@@ -1,4 +1,6 @@
-﻿namespace ConviteOnline.Application.DTOs
+﻿using ConviteOnline.Application.Utils;
+
+namespace ConviteOnline.Application.DTOs
 {
     public class AniversarioDTO
     {
@@ -11,6 +13,7 @@
         public string Informativos { get; set; }
         public DateOnly DataAniversario { get; set; }
         public DateOnly DataEvento { get; set; }
+        public string DiaSemanaEvento { get { return DateUtil.ObterDiaSemana(DataEvento.DayOfWeek); } }
         public string HorarioEvento { get; set; }
         public string Endereco { get; set; }
         public string LocalizacaoUrl { get; set; }

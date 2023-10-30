@@ -77,53 +77,81 @@ namespace ConviteOnline.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put(string id, [FromBody] AniversarioAlterarDTO userAlterarDto, CancellationToken cancellation)
+        public async Task<ActionResult> Put(string id, [FromBody] AniversarioAlterarDTO aniversarioAlterarDto, CancellationToken cancellation)
         {
-            if (id != userAlterarDto.Id)
+            if (id != aniversarioAlterarDto.Id)
                 return BadRequest();
 
-            if (userAlterarDto == null)
+            if (aniversarioAlterarDto == null)
                 return BadRequest();
 
-            await _aniversarioService.AlterarAsync(userAlterarDto, cancellation);
+            var dto = await _aniversarioService.AlterarAsync(aniversarioAlterarDto, cancellation);
 
-            return Ok(userAlterarDto);
+            return Ok(dto);
         }
 
         [HttpDelete]
         public async Task<ActionResult<AniversarioDTO>> Delete(string id, CancellationToken cancellation)
         {
-            var user = await _aniversarioService.ObterPorIdAsync(id, cancellation);
-            if (user == null)
+            var aniversario = await _aniversarioService.ObterPorIdAsync(id, cancellation);
+            if (aniversario == null)
                 return NotFound("Aniversario não encontrada");
 
             await _aniversarioService.DeletaAsync(id, cancellation);
 
-            return Ok(user);
+            return Ok(aniversario);
         }
 
         [HttpDelete("RemoverFotoDestaque")]
         public async Task<ActionResult<AniversarioDTO>> RemoverFotoDestaque(string id, string aniversarioId, CancellationToken cancellation)
         {
-            var user = await _aniversarioService.ObterPorIdAsync(aniversarioId, cancellation);
-            if (user == null)
+            var aniversario = await _aniversarioService.ObterPorIdAsync(aniversarioId, cancellation);
+            if (aniversario == null)
                 return NotFound("Aniversario não encontrada");
 
             await _aniversarioService.RemoverFotoDestaqueAsync(id, aniversarioId, cancellation);
 
-            return Ok(user);
+            return Ok(aniversario);
         }
 
         [HttpDelete("RemoverFotoCarrossel")]
         public async Task<ActionResult<AniversarioDTO>> RemoverFotoCarrossel(string id, string aniversarioId, CancellationToken cancellation)
         {
-            var user = await _aniversarioService.ObterPorIdAsync(aniversarioId, cancellation);
-            if (user == null)
+            var aniversario = await _aniversarioService.ObterPorIdAsync(aniversarioId, cancellation);
+            if (aniversario == null)
                 return NotFound("Aniversario não encontrada");
 
             await _aniversarioService.RemoverFotoCarrosselAsync(id, aniversarioId, cancellation);
 
-            return Ok(user);
+            return Ok(aniversario);
+        }
+
+        [HttpPost("AlterarImagemConvite")]
+        public async Task<ActionResult> AlterarImagemConvite(string aniversarioId, [FromForm] IFormFile arquivo, CancellationToken cancellation)
+        {
+            if (string.IsNullOrEmpty(aniversarioId))
+                return BadRequest("Invalid Data");
+
+            await using var memoryStream = new MemoryStream();
+            await arquivo.CopyToAsync(memoryStream, cancellation);
+            UploadFileDTO file = new(arquivo.FileName, memoryStream);
+
+            var result = await _aniversarioService.AlterarImagemConviteAsync(aniversarioId, file, cancellation);
+
+            return new CreatedAtRouteResult("GetPorId", new { id = aniversarioId },
+                result);
+        }
+
+        [HttpDelete("RemoverImagemConvite")]
+        public async Task<ActionResult<AniversarioDTO>> RemoverImagemConvite(string aniversarioId, CancellationToken cancellation)
+        {
+            var aniversario = await _aniversarioService.ObterPorIdAsync(aniversarioId, cancellation);
+            if (aniversario == null)
+                return NotFound("Aniversario não encontrada");
+
+            var result = await _aniversarioService.RemoverImagemConviteAsync(aniversarioId, cancellation);
+
+            return Ok(result);
         }
     }
 }

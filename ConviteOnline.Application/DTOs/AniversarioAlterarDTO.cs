@@ -26,7 +26,6 @@ namespace ConviteOnline.Application.DTOs
         [Required(ErrorMessage = "Horário Evento é requerido")]
         public string Endereco { get; set; }
         public string LocalizacaoUrl { get; set; }
-        public string ImagemConvite { get; set; }
         [Required(ErrorMessage = "Data Limite Confirma Presença é requerido")]
         public DateOnly DataLimiteConfirmaPresenca { get; set; }
     }

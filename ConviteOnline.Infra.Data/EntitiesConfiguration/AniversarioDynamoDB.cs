@@ -84,8 +84,8 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
             if (aniversario != null)
             {
                 var aniver =  new Aniversario(aniversario.Id, aniversario.Slug, aniversario.Nome, aniversario.Idade, aniversario.Descricao, aniversario.Titulo, 
-                    aniversario.Informativos, DateOnly.FromDateTime(aniversario.DataAniversario), DateOnly.FromDateTime(aniversario.DataEvento), aniversario.HorarioEvento, aniversario.Endereco, aniversario.LocalizacaoUrl,
-                    aniversario.ImagemConvite, DateOnly.FromDateTime(aniversario.DataLimiteConfirmaPresenca));
+                    aniversario.Informativos, DateOnly.FromDateTime(aniversario.DataAniversario), DateOnly.FromDateTime(aniversario.DataEvento), 
+                    aniversario.HorarioEvento, aniversario.Endereco, aniversario.LocalizacaoUrl, DateOnly.FromDateTime(aniversario.DataLimiteConfirmaPresenca));
 
                 if (aniversario.FotosDestaque is not null)
                 {
@@ -101,7 +101,12 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
                     {
                         aniver.AdicionarFotoCarrossel((Foto)item);
                     }
-                }                
+                }
+
+                if (!string.IsNullOrEmpty(aniversario.ImagemConvite))
+                {
+                    aniver.AlterarImagemConvite(aniversario.ImagemConvite);
+                }
 
                 return aniver;
             }

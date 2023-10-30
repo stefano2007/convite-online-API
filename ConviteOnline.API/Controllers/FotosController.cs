@@ -59,9 +59,9 @@ namespace ConviteOnline.API.Controllers
             if (userAlterarDto == null)
                 return BadRequest();
 
-            await _fotoService.AlterarAsync(userAlterarDto, cancellation);
+            var dto = await _fotoService.AlterarAsync(userAlterarDto, cancellation);
 
-            return Ok(userAlterarDto);
+            return Ok(dto);
         }
 
         [HttpDelete]
