@@ -15,10 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApiProblemDetails();
+builder.Services.ConfigCors();
+
 
 var app = builder.Build();
 
 app.UseProblemDetails();
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

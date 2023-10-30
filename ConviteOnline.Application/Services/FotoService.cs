@@ -50,7 +50,7 @@ namespace ConviteOnline.Application.Services
                 throw new ApplicationException($"Erro ao salvar arquivo.");
             }
 
-            var foto = new Foto(Guid.NewGuid().ToString(), request.AniversarioId, urlArquivo, request.Titulo, request.SubTitulo, request.Ordem);
+            var foto = new Foto(file.NewId, request.AniversarioId, urlArquivo, request.Titulo, request.SubTitulo, request.Ordem);
 
             if (foto == null)
             {
