@@ -9,7 +9,7 @@ namespace ConviteOnline.Domain.Entities
         public int QtdCriancas { get; private set; }
         public string Mensagem { get; private set; }
         public bool MarcaPresenca { get; private set; }
-        public DateTime DataResposta { get; protected set; }
+        public DateTime DataResposta { get; private set; }
         public DateTime? DataModificacao { get; private set; }
 
         public Resposta(string aniversarioId, int qtdAdultos, int qtdCriancas, string mensagem, bool marcaPresenca, DateTime? dataModificacao)

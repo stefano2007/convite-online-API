@@ -28,7 +28,6 @@ namespace ConviteOnline.Infra.IoC
 
             services.AddSingleton<AmazonS3ClientUtil>(c => AmazonS3ClientUtil.IniciarlizacaoS3(configuration));
 
-
             //Repositorios
             services.AddScoped<IFotoRepositorio, FotoRepositorio>();
             services.AddScoped<IRespostaRepositorio, RespostaRepositorio>();
