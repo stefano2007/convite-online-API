@@ -59,7 +59,7 @@ namespace ConviteOnline.Domain.Entities
             DomainExceptionValidation.When(fotoCarrossel == null,
                "Não foi possivel localizar a foto para excluir.");
 
-            FotosDestaque.Remove(fotoCarrossel);
+            FotosCarrossel.Remove(fotoCarrossel);
         }
 
         public void AlterarImagemConvite(string imagemConvite)

@@ -21,7 +21,7 @@ namespace ConviteOnline.Application.Services
         }
         public async Task<FotoDTO> AlterarAsync(FotoAlterarDTO request, CancellationToken cancellation)
         {
-            var foto = await _fotoRepositorio.ObterPorIdAsync(request.AniversarioId, cancellation);
+            var foto = await _fotoRepositorio.ObterPorIdAsync(request.Id, cancellation);
 
             if (foto == null)
             {

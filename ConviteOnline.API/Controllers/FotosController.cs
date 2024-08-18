@@ -15,12 +15,12 @@ namespace ConviteOnline.API.Controllers
             _fotoService = fotoService;
         }
 
-        [HttpGet("GetFotoPorAniversarioId", Name = "GetFotoPorAniversarioId")]
+        [HttpGet("GetFotosPorAniversarioId", Name = "GetFotosPorAniversarioId")]
         public async Task<ActionResult<IEnumerable<FotoDTO>>> GetFotoPorAniversarioId(string aniversarioId, CancellationToken cancellation)
         {
             var fotos = await _fotoService.ObterPorAniversarioIdAsync(aniversarioId, cancellation);
             
-            return Ok(fotos);
+            return Ok(fotos.OrderBy(foto => foto.Ordem));
         }
 
         [HttpGet("GetFotoPorId", Name = "GetFotoPorId")]
@@ -50,7 +50,8 @@ namespace ConviteOnline.API.Controllers
                 result);
         }
 
-        [HttpPut]
+
+        [HttpPut("{id}")]
         public async Task<ActionResult> Put(string id, [FromBody] FotoAlterarDTO userAlterarDto, CancellationToken cancellation)
         {
             if (id != userAlterarDto.Id)
@@ -64,7 +65,7 @@ namespace ConviteOnline.API.Controllers
             return Ok(dto);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<FotoDTO>> Delete(string id, CancellationToken cancellation)
         {
             var user = await _fotoService.ObterPorIdAsync(id, cancellation);

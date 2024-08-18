@@ -45,21 +45,21 @@ namespace ConviteOnline.API.Controllers
                 result);
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Put(string id, [FromBody] RespostaAlterarDTO userAlterarDto, CancellationToken cancellation)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(string id, [FromBody] RespostaAlterarDTO request, CancellationToken cancellation)
         {
-            if (id != userAlterarDto.Id)
+            if (id != request.Id)
                 return BadRequest();
 
-            if (userAlterarDto == null)
+            if (request == null)
                 return BadRequest();
 
-            var dto = await _respostaService.AlterarAsync(userAlterarDto, cancellation);
+            var dto = await _respostaService.AlterarAsync(request, cancellation);
 
             return Ok(dto);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<RespostaDTO>> Delete(string id, CancellationToken cancellation)
         {
             var user = await _respostaService.ObterPorIdAsync(id, cancellation);
