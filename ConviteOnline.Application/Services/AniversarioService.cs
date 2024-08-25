@@ -72,7 +72,7 @@ namespace ConviteOnline.Application.Services
             }
 
             aniversario.Update(request.Slug, request.Nome, request.Idade, request.Descricao, request.Titulo, request.Informativos,
-                request.DataAniversario, request.DataEvento, request.HorarioEvento, request.Endereco, request.LocalizacaoUrl,
+                request.DataAniversario, request.DataEvento, request.HorarioEvento, request.Local, request.Endereco, request.LocalizacaoUrl,
                 request.DataLimiteConfirmaPresenca);
 
             var result = await _aniversarioRepositorio.AlterarAsync(aniversario, cancellation);
@@ -105,7 +105,7 @@ namespace ConviteOnline.Application.Services
         public async Task<AniversarioDTO> CriarAsync(AniversarioCriarDTO request, CancellationToken cancellation)
         {
             var aniversario = new Aniversario(Guid.NewGuid().ToString(),request.Slug, request.Nome, request.Idade, request.Descricao, request.Titulo, request.Informativos,
-                request.DataAniversario, request.DataEvento, request.HorarioEvento, request.Endereco, request.LocalizacaoUrl,
+                request.DataAniversario, request.DataEvento, request.HorarioEvento, request.Local, request.Endereco, request.LocalizacaoUrl,
                 request.DataLimiteConfirmaPresenca);
 
             if (aniversario == null)

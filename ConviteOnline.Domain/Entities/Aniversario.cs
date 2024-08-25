@@ -13,6 +13,7 @@ namespace ConviteOnline.Domain.Entities
         public DateOnly DataAniversario { get; private set; }
         public DateOnly DataEvento { get; private set; }
         public string HorarioEvento { get; private set; }
+        public string Local { get; private set; }
         public string Endereco { get; private set; }
         public string LocalizacaoUrl { get; private set; }
         public string ImagemConvite { get; private set; }
@@ -76,36 +77,36 @@ namespace ConviteOnline.Domain.Entities
         }
 
         public Aniversario(string slug, string nome, int idade, string descricao, string titulo, 
-            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, 
+            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, string local,
             string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
-                dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl, 
+                dataAniversario, dataEvento, horarioEvento, local, endereco, localizacaoUrl, 
                 dataLimiteConfirmaPresenca);
         }
 
         public Aniversario(string id, string slug, string nome, int idade, string descricao, string titulo,
-            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
+            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, string local,
             string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(id), "Id inválido.");
             Id = id;
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
-                dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl,
+                dataAniversario, dataEvento, horarioEvento, local, endereco, localizacaoUrl,
                 dataLimiteConfirmaPresenca);
         }
 
         public void Update(string slug, string nome, int idade, string descricao, string titulo,
-            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
+            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, string local,
             string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             ValidateDomain(slug, nome, idade, descricao, titulo, informativos,
-                dataAniversario, dataEvento, horarioEvento, endereco, localizacaoUrl,
+                dataAniversario, dataEvento, horarioEvento, local, endereco, localizacaoUrl,
                 dataLimiteConfirmaPresenca);
         }
 
         private void ValidateDomain(string slug, string nome, int idade, string descricao, string titulo,
-            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento,
+            string informativos, DateOnly dataAniversario, DateOnly dataEvento, string horarioEvento, string local,
             string endereco, string localizacaoUrl, DateOnly dataLimiteConfirmaPresenca)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(slug),
@@ -147,6 +148,7 @@ namespace ConviteOnline.Domain.Entities
             DataAniversario = dataAniversario;
             DataEvento = dataEvento;
             HorarioEvento = horarioEvento;
+            Local = local;
             Endereco = endereco;
             LocalizacaoUrl = localizacaoUrl;
             DataLimiteConfirmaPresenca = dataLimiteConfirmaPresenca;

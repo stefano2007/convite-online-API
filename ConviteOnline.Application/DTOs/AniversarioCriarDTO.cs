@@ -19,9 +19,10 @@ namespace ConviteOnline.Application.DTOs
         public DateOnly DataAniversario { get; set; }
         [Required(ErrorMessage = "Data Evento é requerido")]
         public DateOnly DataEvento { get; set; }
-        [Required(ErrorMessage = "Slug é requerido")]
+        [Required(ErrorMessage = "Horário é requerido")]
         public string HorarioEvento { get; set; }
-        [Required(ErrorMessage = "Horário Evento é requerido")]
+        public string Local { get; set; }
+        [Required(ErrorMessage = "Endereço Evento é requerido")]
         public string Endereco { get; set; }
         public string LocalizacaoUrl { get; set; }
         [Required(ErrorMessage = "Data Limite Confirma Presença é requerido")]

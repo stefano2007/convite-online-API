@@ -1,4 +1,5 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
+using Amazon.Runtime.Internal;
 using ConviteOnline.Domain.Entities;
 
 namespace ConviteOnline.Infra.Data.EntitiesConfiguration
@@ -36,6 +37,9 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
         [DynamoDBProperty("horarioEvento")]
         public string HorarioEvento { get; set; }
 
+        [DynamoDBProperty("local")]
+        public string Local { get; set; }
+
         [DynamoDBProperty("endereco")]
         public string Endereco { get; set; }
 
@@ -68,6 +72,7 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
                     DataAniversario = DateTime.Parse(aniversario.DataAniversario.ToShortDateString()),
                     DataEvento = DateTime.Parse(aniversario.DataEvento.ToShortDateString()),
                     HorarioEvento = aniversario.HorarioEvento,
+                    Local = aniversario.Local,
                     Endereco = aniversario.Endereco,
                     LocalizacaoUrl = aniversario.LocalizacaoUrl,
                     ImagemConvite = aniversario.ImagemConvite,
@@ -85,7 +90,7 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
             {
                 var aniver =  new Aniversario(aniversario.Id, aniversario.Slug, aniversario.Nome, aniversario.Idade, aniversario.Descricao, aniversario.Titulo, 
                     aniversario.Informativos, DateOnly.FromDateTime(aniversario.DataAniversario), DateOnly.FromDateTime(aniversario.DataEvento), 
-                    aniversario.HorarioEvento, aniversario.Endereco, aniversario.LocalizacaoUrl, DateOnly.FromDateTime(aniversario.DataLimiteConfirmaPresenca));
+                    aniversario.HorarioEvento, aniversario.Local, aniversario.Endereco, aniversario.LocalizacaoUrl, DateOnly.FromDateTime(aniversario.DataLimiteConfirmaPresenca));
 
                 if (aniversario.FotosDestaque is not null)
                 {

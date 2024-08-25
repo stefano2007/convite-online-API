@@ -25,7 +25,7 @@ namespace ConviteOnline.Application.Services
                 throw new ApplicationException("Resposta não encontrada para alterar");
             }
 
-            resposta.Update(request.AniversarioId, request.QtdAdultos, request.QtdCriancas, request.Mensagem, request.MarcaPresenca, DateTime.Now);
+            resposta.Update(request.AniversarioId, request.Nome, request.Email, request.QtdAdultos, request.QtdCriancas, request.Mensagem, request.MarcaPresenca, DateTime.Now);
 
             var result = await _respostaRepositorio.AlterarAsync(resposta, cancellation);
             return _mapper.Map<RespostaDTO>(result);
@@ -33,7 +33,7 @@ namespace ConviteOnline.Application.Services
 
         public async Task<RespostaDTO> CriarAsync(RespostaCriarDTO request, CancellationToken cancellation)
         {
-            var resposta = new Resposta(Guid.NewGuid().ToString(), request.AniversarioId, request.QtdAdultos, request.QtdCriancas, request.Mensagem,request.MarcaPresenca, DateTime.Now, null);
+            var resposta = new Resposta(Guid.NewGuid().ToString(), request.AniversarioId, request.Nome, request.Email, request.QtdAdultos, request.QtdCriancas, request.Mensagem,request.MarcaPresenca, DateTime.Now, null);
 
             if (resposta == null)
             {

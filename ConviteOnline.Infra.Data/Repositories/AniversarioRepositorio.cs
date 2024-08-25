@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.Runtime.Internal;
 using ConviteOnline.Domain.Entities;
 using ConviteOnline.Domain.Interfaces;
 using ConviteOnline.Infra.Data.EntitiesConfiguration;
@@ -43,7 +44,7 @@ namespace ConviteOnline.Infra.Data.Repositories
         {
             var aniversarioDB = (Aniversario)await _dynamoDBContext.LoadAsync<AniversarioDynamoDB>(obj.Id, cancellation);
             aniversarioDB.Update(obj.Slug, obj.Nome, obj.Idade, obj.Descricao, obj.Titulo, obj.Informativos,
-                obj.DataAniversario, obj.DataEvento, obj.HorarioEvento, obj.Endereco, obj.LocalizacaoUrl,
+                obj.DataAniversario, obj.DataEvento, obj.HorarioEvento, obj.Local, obj.Endereco, obj.LocalizacaoUrl,
                 obj.DataLimiteConfirmaPresenca);
 
             var aniversarioDBUpdate = (AniversarioDynamoDB)aniversarioDB;

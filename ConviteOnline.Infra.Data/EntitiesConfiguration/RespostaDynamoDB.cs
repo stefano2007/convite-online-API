@@ -8,8 +8,12 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
     {
         [DynamoDBHashKey("Id")]
         public string Id { get; set; }
-        [DynamoDBProperty("aniversarioId")]
+        [DynamoDBProperty("aniversarioId")]        
         public string AniversarioId { get; set; }
+        [DynamoDBProperty("nome")]
+        public string Nome { get; set; }
+        [DynamoDBProperty("email")]
+        public string Email { get; set; }
         [DynamoDBProperty("qtdAdultos")]
         public int QtdAdultos { get; set; }
         [DynamoDBProperty("qtdCriancas")]
@@ -31,6 +35,8 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
                 {
                     Id = resposta.Id,
                     AniversarioId = resposta.AniversarioId,
+                    Nome = resposta.Nome,
+                    Email = resposta.Email,
                     QtdAdultos = resposta.QtdAdultos,
                     QtdCriancas = resposta.QtdCriancas,
                     Mensagem = resposta.Mensagem,
@@ -46,7 +52,7 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
         {
             if (resposta != null)
             {
-                return new Resposta(resposta.Id, resposta.AniversarioId, resposta.QtdAdultos, resposta.QtdCriancas,
+                return new Resposta(resposta.Id, resposta.AniversarioId, resposta.Nome, resposta.Email, resposta.QtdAdultos, resposta.QtdCriancas,
                     resposta.Mensagem, resposta.MarcaPresenca, resposta.DataResposta, resposta.DataModificacao);
             }
             return null;

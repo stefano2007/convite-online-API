@@ -15,6 +15,7 @@ namespace ConviteOnline.Application.DTOs
         public DateOnly DataEvento { get; set; }
         public string DiaSemanaEvento { get { return DateUtil.ObterDiaSemana(DataEvento.DayOfWeek); } }
         public string HorarioEvento { get; set; }
+        public string Local { get; set; }
         public string Endereco { get; set; }
         public string LocalizacaoUrl { get; set; }
         public string ImagemConvite { get; set; }

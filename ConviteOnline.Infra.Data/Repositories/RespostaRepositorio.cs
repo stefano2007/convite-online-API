@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.Runtime.Internal;
 using ConviteOnline.Domain.Entities;
 using ConviteOnline.Domain.Interfaces;
 using ConviteOnline.Infra.Data.EntitiesConfiguration;
@@ -18,8 +19,8 @@ namespace ConviteOnline.Infra.Data.Repositories
         public async Task<Resposta> AlterarAsync(Resposta resposta, CancellationToken cancellation)
         {
             var respostaDB = (Resposta)await _dynamoDBContext.LoadAsync<RespostaDynamoDB>(resposta.Id, cancellation);
-            respostaDB.Update(resposta.AniversarioId, resposta.QtdAdultos, resposta.QtdCriancas,
-                    resposta.Mensagem, resposta.MarcaPresenca, resposta.DataModificacao);
+            respostaDB.Update(resposta.AniversarioId, resposta.Nome, resposta.Email, resposta.QtdAdultos, resposta.QtdCriancas,
+            resposta.Mensagem, resposta.MarcaPresenca, resposta.DataModificacao);
 
             var respostaDBUpdate = (RespostaDynamoDB)respostaDB;
 
