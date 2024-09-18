@@ -6,7 +6,7 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
     [DynamoDBTable("fotosConviteOnline")]
     public class FotoDynamoDB
     {
-        [DynamoDBHashKey("Id")]
+        [DynamoDBHashKey("id")]
         public string Id { get; set; }
 
         [DynamoDBProperty("aniversarioId")]

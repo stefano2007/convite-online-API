@@ -12,7 +12,7 @@ namespace ConviteOnline.Application.Services
         public StorageService(AmazonS3ClientUtil s3ClientUtil, IConfiguration configuration)
         {
             _s3ClientUtil = s3ClientUtil;
-            CaminhoImagens = configuration["S3:CaminhoImagens"];
+            CaminhoImagens = configuration["aws.s3.caminho.imagens"];
         }
         
         public async Task<string> CarregaArquivoAsync(UploadFileDTO arquivo, string aniversarioId, string subPasta, CancellationToken cancellation)

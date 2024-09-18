@@ -5,6 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{98959A15-02A7-4B11-A5C1-5A9BE0D54AE0}"
 	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -16,17 +17,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6B2DA3B4-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apresentation", "Apresentation", "{A5CA5EC1-B0A5-4C23-AE08-2371882ACCE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConviteOnline.Application", "ConviteOnline.Application\ConviteOnline.Application.csproj", "{8675BB04-3A6E-4CAB-980C-2653254AA385}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConviteOnline.Application", "ConviteOnline.Application\ConviteOnline.Application.csproj", "{8675BB04-3A6E-4CAB-980C-2653254AA385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConviteOnline.Domain", "ConviteOnline.Domain\ConviteOnline.Domain.csproj", "{0AB3E840-FBC6-4109-8B4F-65A6FADACD8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConviteOnline.Domain", "ConviteOnline.Domain\ConviteOnline.Domain.csproj", "{0AB3E840-FBC6-4109-8B4F-65A6FADACD8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConviteOnline.API", "ConviteOnline.API\ConviteOnline.API.csproj", "{AA5C5897-A19A-4459-B68E-A2D9011348A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConviteOnline.API", "ConviteOnline.API\ConviteOnline.API.csproj", "{AA5C5897-A19A-4459-B68E-A2D9011348A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConviteOnline.Infra.Data", "ConviteOnline.Infra.Data\ConviteOnline.Infra.Data.csproj", "{198A01D1-04C6-43CF-9A59-8B77BD0852A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConviteOnline.Infra.Data", "ConviteOnline.Infra.Data\ConviteOnline.Infra.Data.csproj", "{198A01D1-04C6-43CF-9A59-8B77BD0852A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConviteOnline.Infra.IoC", "ConviteOnline.Infra.IoC\ConviteOnline.Infra.IoC.csproj", "{5B76E138-B0CA-41B7-9BD3-E5AA3E6F7549}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConviteOnline.Infra.IoC", "ConviteOnline.Infra.IoC\ConviteOnline.Infra.IoC.csproj", "{5B76E138-B0CA-41B7-9BD3-E5AA3E6F7549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConviteOnline.Domain.Tests", "ConviteOnline.Domain.Tests\ConviteOnline.Domain.Tests.csproj", "{5200F36C-C16A-4A9F-9768-14E83205E030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConviteOnline.Domain.Tests", "ConviteOnline.Domain.Tests\ConviteOnline.Domain.Tests.csproj", "{5200F36C-C16A-4A9F-9768-14E83205E030}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{30E0E8FB-0FB4-4580-B9DC-453099C6888A}"
+	ProjectSection(SolutionItems) = preProject
+		infra\dynamoDB.tf = infra\dynamoDB.tf
+		infra\main.tf = infra\main.tf
+		infra\s3.tf = infra\s3.tf
+		infra\variables.tf = infra\variables.tf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

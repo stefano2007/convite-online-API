@@ -6,7 +6,7 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
     [DynamoDBTable("respostasConviteOnline")]
     public class RespostaDynamoDB
     {
-        [DynamoDBHashKey("Id")]
+        [DynamoDBHashKey("id")]
         public string Id { get; set; }
         [DynamoDBProperty("aniversarioId")]        
         public string AniversarioId { get; set; }

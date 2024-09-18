@@ -1,6 +1,5 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.Runtime.Internal;
 using ConviteOnline.Domain.Entities;
 using ConviteOnline.Domain.Interfaces;
 using ConviteOnline.Infra.Data.EntitiesConfiguration;
@@ -73,7 +72,7 @@ namespace ConviteOnline.Infra.Data.Repositories
         }
         public async Task<Aniversario> ObterPorIdAsync(string id, CancellationToken cancellation)
         {
-            var aniversarioDynamoDB = await _dynamoDBContext.LoadAsync<AniversarioDynamoDB>(id, cancellation);
+            var aniversarioDynamoDB = await _dynamoDBContext.LoadAsync<AniversarioDynamoDB>(id, new DynamoDBOperationConfig { IndexName = "slug" }, cancellation);
 
             var aniversario = (Aniversario)aniversarioDynamoDB;
             return aniversario;

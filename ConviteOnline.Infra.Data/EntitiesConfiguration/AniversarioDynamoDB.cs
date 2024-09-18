@@ -1,5 +1,4 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
-using Amazon.Runtime.Internal;
 using ConviteOnline.Domain.Entities;
 
 namespace ConviteOnline.Infra.Data.EntitiesConfiguration
@@ -7,7 +6,7 @@ namespace ConviteOnline.Infra.Data.EntitiesConfiguration
     [DynamoDBTable("aniversariosConviteOnline")]
     public class AniversarioDynamoDB
     {
-        [DynamoDBHashKey("Id")]
+        [DynamoDBHashKey("id")]
         public string Id { get; set; }
 
         [DynamoDBProperty("slug")]

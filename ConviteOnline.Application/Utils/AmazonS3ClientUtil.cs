@@ -5,7 +5,6 @@ using Amazon.S3.Transfer;
 using ConviteOnline.Application.DTOs;
 using ConviteOnline.Application.Utils.DTOs;
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace ConviteOnline.Application.Utils
 {
@@ -21,8 +20,10 @@ namespace ConviteOnline.Application.Utils
 
         public static AmazonS3ClientUtil IniciarlizacaoS3(IConfiguration configuration)
         {
-            var region = RegionEndpoint.GetBySystemName(configuration["AWS:Region"]);
-            return new AmazonS3ClientUtil(region, configuration["S3:BucketName"]);
+            return new AmazonS3ClientUtil(
+                RegionEndpoint.GetBySystemName(configuration["aws.region"]), 
+                configuration["aws.s3.bucket.name"]
+                );
         }
 
         public async Task<S3ResponseDTO> UploadFileAsync(UploadFileDTO obj, string path, CancellationToken cancellation)
@@ -98,13 +99,18 @@ namespace ConviteOnline.Application.Utils
 
         private string MountUrl(string keyName)
         {
-            return $"https://{BucketNameStorage}.s3.{RegionName}.amazonaws.com/" + keyName;
+            //TODO:
+            //   era assim https://stefano.silva.dev-convite-online-storage.s3.sa-east-1.amazonaws.com/
+            // agora assim https://s3.sa-east-1.amazonaws.com/stefano.silva.dev-convite-online-storage/
+            //return $"https://{BucketNameStorage}.s3.{RegionName}.amazonaws.com/" + keyName;
+            return $"https://s3.{RegionName}.amazonaws.com/{BucketNameStorage}/" + keyName;
         }
 
+        //TODO remover SERVER
         private string GetPathByUlrFile(string urlFile)
         {
             //TODO: Revisa metodo para obter caminho do arquivo
-            return urlFile.Replace($"https://{BucketNameStorage}.s3.{RegionName}.amazonaws.com/", "");
+            return urlFile.Replace($"https://s3.{RegionName}.amazonaws.com/{BucketNameStorage}/", "");
         }
     }
 }
